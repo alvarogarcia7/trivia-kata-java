@@ -43,16 +43,18 @@ public class Players {
         return places[currentPlayer];
     }
 
-    void movePlayer(int roll) {
+    private void movePlayer(int roll) {
         getPlaces()[currentPlayer] = places[currentPlayer] + roll;
     }
 
-    void wrapPlayerPlace() {
-        getPlaces()[currentPlayer] = places[currentPlayer] - 12;
+    private void wrapPlayerPlaceIfNecessary() {
+        if (places[currentPlayer] > 11) {
+            getPlaces()[currentPlayer] = places[currentPlayer] - 12;
+        }
     }
 
-    void advancePlace(int roll) {
+    public void advancePlace(int roll) {
         movePlayer(roll);
-        if (places[currentPlayer] > 11) wrapPlayerPlace();
+        wrapPlayerPlaceIfNecessary();
     }
 }
