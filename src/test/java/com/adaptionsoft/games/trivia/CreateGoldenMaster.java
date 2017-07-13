@@ -23,9 +23,7 @@ public class CreateGoldenMaster {
 
     @BeforeClass
     public static void removeFolderContents() {
-        Path path = goldenMasterPath;
-        FileUtils.emptyFolder(path);
-
+        FileUtils.emptyFolder(goldenMasterPath);
     }
 
     @Test
