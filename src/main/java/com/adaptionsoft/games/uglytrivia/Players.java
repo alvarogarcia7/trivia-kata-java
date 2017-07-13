@@ -36,11 +36,11 @@ public class Players {
     }
 
     void initializePlace() {
-        getPlaces()[playersSize() - 1] = 0;
+        places[playersSize() - 1] = 0;
     }
 
     int getCurrentPlayerPlace() {
-        return getPlaces()[getCurrentPlayer()];
+        return places[getCurrentPlayer()];
     }
 
     void movePlayer(int roll) {
