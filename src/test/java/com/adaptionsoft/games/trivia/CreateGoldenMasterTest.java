@@ -8,22 +8,30 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.security.SecureRandom;
 import java.util.Random;
+import java.util.Scanner;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 import static java.nio.file.FileVisitResult.TERMINATE;
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 import static java.util.Collections.singletonList;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-public class CreateGoldenMaster {
+public class CreateGoldenMasterTest {
 
+    private static Path executionPath = Paths.get("target/executions/");
     private static Path goldenMasterPath = Paths.get("src/test/resources/golden-master/");
 
     @BeforeClass
     public static void removeFolderContents() {
-        Path path = goldenMasterPath;
+        Path path = executionPath;
         try {
+            try {
+                Files.createDirectory(executionPath);
+            } catch (Exception e) {
+
+            }
             shallowDeleteFolder(path);
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,14 +39,18 @@ public class CreateGoldenMaster {
     }
 
     @Test
-    public void create_test_cases() throws Exception {
+    public void create_executions() throws Exception {
         Random random = new Random(213L);
         for (int i = 1; i < 1000; i++) {
-            writeGoldenMaster(random.nextInt());
+            int seed = random.nextInt();
+            Path actualPath = executionPath.resolve("output_" + seed + ".actual");
+            Path expectedPath = goldenMasterPath.resolve("output_" + seed + ".expected");
+            writeExecution(seed, actualPath);
+            assertThat(Files.readAllLines(expectedPath), is(Files.readAllLines(actualPath)));
         }
     }
 
-    private void writeGoldenMaster(long seed) throws IOException {
+    private void writeExecution(long seed, Path destination) throws IOException {
         MockSystemOutput inject = MockSystemOutput.inject();
 
         boolean notAWinner;
@@ -61,7 +73,8 @@ public class CreateGoldenMaster {
             }
         } while (notAWinner);
 
-        Files.write(goldenMasterPath.resolve("output_" + seed + ".expected"), singletonList(inject.toString()), CREATE_NEW);
+        Files.write(executionPath.resolve("output_" + seed + ".actual"), singletonList(inject.toString()), CREATE_NEW);
+
     }
 
     private static void shallowDeleteFolder(Path path) throws IOException {
