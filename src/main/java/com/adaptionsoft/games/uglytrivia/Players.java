@@ -1,9 +1,10 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Players {
-    private ArrayList players = new ArrayList();
+    private List<Player> players = new ArrayList<>();
     private int currentPlayer;
     private int[] places = new int[6];
     private int[] purses  = new int[6];
@@ -15,7 +16,7 @@ public class Players {
     }
 
     boolean addPlayer(String playerName) {
-        return players.add(playerName);
+        return players.add(new Player(playerName));
     }
 
     Object currentPlayer() {
