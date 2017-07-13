@@ -4,6 +4,7 @@ import com.adaptionsoft.games.fileutils.FileUtils;
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.gmaur.legacycode.legacyutils.output.MockSystemOutput;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import static java.nio.file.FileVisitResult.TERMINATE;
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 import static java.util.Collections.singletonList;
 
+@Ignore
 public class CreateGoldenMaster {
 
     private static Path goldenMasterPath = Paths.get("src/test/resources/golden-master/");
@@ -36,26 +38,9 @@ public class CreateGoldenMaster {
 
     private void writeGoldenMaster(long seed) throws IOException {
         MockSystemOutput inject = MockSystemOutput.inject();
-
-        boolean notAWinner;
-        Game aGame = new Game();
-
         Random rand = new Random(seed);
-        int numberOfPlayers = rand.nextInt(4);
-        aGame.add("Chet");
-        aGame.add("Pat");
-        for (int i = 0; i < numberOfPlayers; i++) {
-            aGame.add("Player " + i);
-        }
 
-        do {
-            aGame.roll(rand.nextInt(5) + 1);
-            if (rand.nextInt(9) == 7) {
-                notAWinner = aGame.wrongAnswer();
-            } else {
-                notAWinner = aGame.wasCorrectlyAnswered();
-            }
-        } while (notAWinner);
+        new GameRunner(rand).run();
 
         Files.write(goldenMasterPath.resolve("output_" + seed + ".expected"), singletonList(inject.toString()), CREATE_NEW);
     }

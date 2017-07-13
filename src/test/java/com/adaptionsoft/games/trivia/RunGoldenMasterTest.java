@@ -41,31 +41,10 @@ public class RunGoldenMasterTest {
         MockSystemOutput inject = MockSystemOutput.inject();
 
         Random rand = new Random(seed);
-        runAGame(rand);
+        new GameRunner(rand).run();
 
         Files.write(destination, singletonList(inject.toString()), CREATE_NEW);
 
-    }
-
-    private void runAGame(Random rand) {
-        boolean notAWinner;
-        Game aGame = new Game();
-
-        int numberOfPlayers = rand.nextInt(4);
-        aGame.add("Chet");
-        aGame.add("Pat");
-        for (int i = 0; i < numberOfPlayers; i++) {
-            aGame.add("Player " + i);
-        }
-
-        do {
-            aGame.roll(rand.nextInt(5) + 1);
-            if (rand.nextInt(9) == 7) {
-                notAWinner = aGame.wrongAnswer();
-            } else {
-                notAWinner = aGame.wasCorrectlyAnswered();
-            }
-        } while (notAWinner);
     }
 
 }
