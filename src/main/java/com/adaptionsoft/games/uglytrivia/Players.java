@@ -6,6 +6,7 @@ public class Players {
     private ArrayList players = new ArrayList();
     private int currentPlayer;
     private int[] places = new int[6];
+    private int[] purses  = new int[6];
 
     int playersSize() {
         return players.size();
@@ -52,5 +53,13 @@ public class Players {
     public void advancePlace(int roll) {
         movePlayer(roll);
         wrapPlayerPlaceIfNecessary();
+    }
+
+    public int getCurrentPlayerCoins() {
+        return purses[currentPlayer];
+    }
+
+    public void currentPlayerWonACoin() {
+        purses[currentPlayer]++;
     }
 }
