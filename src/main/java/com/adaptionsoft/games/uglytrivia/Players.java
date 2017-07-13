@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Players {
     private ArrayList players = new ArrayList();
+    private int currentPlayer;
+
     int playersSize() {
         return players.size();
     }
@@ -16,4 +18,11 @@ public class Players {
         return players.get(currentPlayer);
     }
 
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 }
