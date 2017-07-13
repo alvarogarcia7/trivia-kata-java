@@ -62,7 +62,7 @@ public class Game {
 
 				System.out.println(playersObject.currentPlayer(this.getCurrentPlayer())
 						+ "'s new location is "
-						+ getPlaces()[getCurrentPlayer()]);
+						+ getCurrentPlayerPlace());
 				System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
@@ -76,24 +76,28 @@ public class Game {
 
 			System.out.println(playersObject.currentPlayer(this.getCurrentPlayer())
 					+ "'s new location is "
-					+ getPlaces()[getCurrentPlayer()]);
+					+ getCurrentPlayerPlace());
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
 
 	}
 
+	private int getCurrentPlayerPlace() {
+		return getPlaces()[getCurrentPlayer()];
+	}
+
 	private void advancePlace(int roll) {
 		movePlayer(roll);
-		if (getPlaces()[getCurrentPlayer()] > 11) wrapPlayerPlace();
+		if (getCurrentPlayerPlace() > 11) wrapPlayerPlace();
 	}
 
 	private void wrapPlayerPlace() {
-		getPlaces()[getCurrentPlayer()] = getPlaces()[getCurrentPlayer()] - 12;
+		getPlaces()[getCurrentPlayer()] = getCurrentPlayerPlace() - 12;
 	}
 
 	private void movePlayer(int roll) {
-		getPlaces()[getCurrentPlayer()] = getPlaces()[getCurrentPlayer()] + roll;
+		getPlaces()[getCurrentPlayer()] = getCurrentPlayerPlace() + roll;
 	}
 
 	private void askQuestion() {
@@ -108,15 +112,15 @@ public class Game {
 	}
 
 	private String currentCategory() {
-		if (getPlaces()[getCurrentPlayer()] == 0) return "Pop";
-		if (getPlaces()[getCurrentPlayer()] == 4) return "Pop";
-		if (getPlaces()[getCurrentPlayer()] == 8) return "Pop";
-		if (getPlaces()[getCurrentPlayer()] == 1) return "Science";
-		if (getPlaces()[getCurrentPlayer()] == 5) return "Science";
-		if (getPlaces()[getCurrentPlayer()] == 9) return "Science";
-		if (getPlaces()[getCurrentPlayer()] == 2) return "Sports";
-		if (getPlaces()[getCurrentPlayer()] == 6) return "Sports";
-		if (getPlaces()[getCurrentPlayer()] == 10) return "Sports";
+		if (getCurrentPlayerPlace() == 0) return "Pop";
+		if (getCurrentPlayerPlace() == 4) return "Pop";
+		if (getCurrentPlayerPlace() == 8) return "Pop";
+		if (getCurrentPlayerPlace() == 1) return "Science";
+		if (getCurrentPlayerPlace() == 5) return "Science";
+		if (getCurrentPlayerPlace() == 9) return "Science";
+		if (getCurrentPlayerPlace() == 2) return "Sports";
+		if (getCurrentPlayerPlace() == 6) return "Sports";
+		if (getCurrentPlayerPlace() == 10) return "Sports";
 		return "Rock";
 	}
 
