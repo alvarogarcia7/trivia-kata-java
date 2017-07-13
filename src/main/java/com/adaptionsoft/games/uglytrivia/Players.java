@@ -15,7 +15,7 @@ public class Players {
         return players.add(playerName);
     }
 
-    Object currentPlayer(int currentPlayer) {
+    Object currentPlayer() {
         return players.get(currentPlayer);
     }
 
