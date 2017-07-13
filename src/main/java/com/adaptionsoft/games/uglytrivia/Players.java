@@ -69,7 +69,7 @@ public class Players {
         return inPenaltyBox[currentPlayer];
     }
 
-    public void toPenaltyBox() {
+    public void sendCurrentPlayertoPenaltyBox() {
         inPenaltyBox[currentPlayer] = true;
     }
 
