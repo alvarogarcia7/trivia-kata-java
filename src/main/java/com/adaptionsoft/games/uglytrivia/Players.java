@@ -31,10 +31,6 @@ public class Players {
         return places;
     }
 
-    public void setPlaces(int[] places) {
-        this.places = places;
-    }
-
     void initializePlace() {
         places[playersSize() - 1] = 0;
     }
