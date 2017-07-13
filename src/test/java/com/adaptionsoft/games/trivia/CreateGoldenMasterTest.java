@@ -40,7 +40,8 @@ public class CreateGoldenMasterTest {
         aGame.add("Pat");
         aGame.add("Sue");
 
-        Random rand = new Random(1L);
+        long seed = 1L;
+        Random rand = new Random(seed);
 
         do {
             aGame.roll(rand.nextInt(5) + 1);
@@ -51,7 +52,7 @@ public class CreateGoldenMasterTest {
             }
         } while (notAWinner);
 
-        Files.write(goldenMasterPath.resolve("test1.actual"), singletonList(inject.toString()), CREATE_NEW);
+        Files.write(goldenMasterPath.resolve("output" + seed + ".actual"), singletonList(inject.toString()), CREATE_NEW);
     }
 
     private static void shallowDeleteFolder(Path path) throws IOException {
