@@ -6,11 +6,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Random;
 
+import static java.nio.file.FileVisitResult.CONTINUE;
+import static java.nio.file.FileVisitResult.TERMINATE;
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 import static java.util.Collections.singletonList;
 
@@ -22,8 +23,7 @@ public class CreateGoldenMasterTest {
     public static void removeFolderContents() {
         Path path = goldenMasterPath;
         try {
-            Files.deleteIfExists(path);
-            Files.createDirectory(path);
+            shallowDeleteFolder(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,4 +53,32 @@ public class CreateGoldenMasterTest {
 
         Files.write(goldenMasterPath.resolve("test1.actual"), singletonList(inject.toString()), CREATE_NEW);
     }
+
+    private static void shallowDeleteFolder(Path path) throws IOException {
+        Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs)
+                    throws IOException {
+                Files.delete(file);
+                return CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFileFailed(final Path file, final IOException e) {
+                return handleException(e);
+            }
+
+            private FileVisitResult handleException(final IOException e) {
+                e.printStackTrace(); // replace with more robust error handling
+                return TERMINATE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(final Path dir, final IOException e)
+                    throws IOException {
+                return TERMINATE;
+            }
+        });
+    }
+
 }
