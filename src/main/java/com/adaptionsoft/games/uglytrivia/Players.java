@@ -34,10 +34,6 @@ public class Players {
         return places;
     }
 
-    void initializePlace() {
-        places[playersSize() - 1] = 0;
-    }
-
     int getCurrentPlayerPlace() {
         return places[currentPlayer];
     }
