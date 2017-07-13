@@ -53,10 +53,17 @@ public class RunGoldenMasterTest {
     private void writeExecution(long seed, Path destination) throws IOException {
         MockSystemOutput inject = MockSystemOutput.inject();
 
+        Random rand = new Random(seed);
+        runAGame(rand);
+
+        Files.write(destination, singletonList(inject.toString()), CREATE_NEW);
+
+    }
+
+    private void runAGame(Random rand) {
         boolean notAWinner;
         Game aGame = new Game();
 
-        Random rand = new Random(seed);
         int numberOfPlayers = rand.nextInt(4);
         aGame.add("Chet");
         aGame.add("Pat");
@@ -72,9 +79,6 @@ public class RunGoldenMasterTest {
                 notAWinner = aGame.wasCorrectlyAnswered();
             }
         } while (notAWinner);
-
-        Files.write(executionPath.resolve("output_" + seed + ".actual"), singletonList(inject.toString()), CREATE_NEW);
-
     }
 
     private static void shallowDeleteFolder(Path path) throws IOException {
