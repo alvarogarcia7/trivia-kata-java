@@ -1,5 +1,6 @@
 package com.adaptionsoft.games.trivia;
 
+import com.adaptionsoft.games.fileutils.FileUtils;
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.gmaur.legacycode.legacyutils.output.MockSystemOutput;
 import org.junit.BeforeClass;
@@ -23,11 +24,8 @@ public class CreateGoldenMaster {
     @BeforeClass
     public static void removeFolderContents() {
         Path path = goldenMasterPath;
-        try {
-            shallowDeleteFolder(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileUtils.emptyFolder(path);
+
     }
 
     @Test
@@ -62,33 +60,6 @@ public class CreateGoldenMaster {
         } while (notAWinner);
 
         Files.write(goldenMasterPath.resolve("output_" + seed + ".expected"), singletonList(inject.toString()), CREATE_NEW);
-    }
-
-    private static void shallowDeleteFolder(Path path) throws IOException {
-        Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs)
-                    throws IOException {
-                Files.delete(file);
-                return CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFileFailed(final Path file, final IOException e) {
-                return handleException(e);
-            }
-
-            private FileVisitResult handleException(final IOException e) {
-                e.printStackTrace(); // replace with more robust error handling
-                return TERMINATE;
-            }
-
-            @Override
-            public FileVisitResult postVisitDirectory(final Path dir, final IOException e)
-                    throws IOException {
-                return TERMINATE;
-            }
-        });
     }
 
 }

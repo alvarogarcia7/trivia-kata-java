@@ -1,5 +1,6 @@
 package com.adaptionsoft.games.trivia;
 
+import com.adaptionsoft.games.fileutils.FileUtils;
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.gmaur.legacycode.legacyutils.output.MockSystemOutput;
 import org.junit.BeforeClass;
@@ -7,12 +8,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Random;
-import java.util.Scanner;
 
-import static java.nio.file.FileVisitResult.CONTINUE;
-import static java.nio.file.FileVisitResult.TERMINATE;
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.core.Is.is;
@@ -25,17 +22,7 @@ public class RunGoldenMasterTest {
 
     @BeforeClass
     public static void removeFolderContents() {
-        Path path = executionPath;
-        try {
-            try {
-                Files.createDirectory(executionPath);
-            } catch (Exception e) {
-
-            }
-            shallowDeleteFolder(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileUtils.emptyFolder(executionPath);
     }
 
     @Test
@@ -79,33 +66,6 @@ public class RunGoldenMasterTest {
                 notAWinner = aGame.wasCorrectlyAnswered();
             }
         } while (notAWinner);
-    }
-
-    private static void shallowDeleteFolder(Path path) throws IOException {
-        Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs)
-                    throws IOException {
-                Files.delete(file);
-                return CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFileFailed(final Path file, final IOException e) {
-                return handleException(e);
-            }
-
-            private FileVisitResult handleException(final IOException e) {
-                e.printStackTrace(); // replace with more robust error handling
-                return TERMINATE;
-            }
-
-            @Override
-            public FileVisitResult postVisitDirectory(final Path dir, final IOException e)
-                    throws IOException {
-                return TERMINATE;
-            }
-        });
     }
 
 }
