@@ -18,7 +18,7 @@ import static java.util.Collections.singletonList;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class CreateGoldenMasterTest {
+public class RunGoldenMasterTest {
 
     private static Path executionPath = Paths.get("target/executions/");
     private static Path goldenMasterPath = Paths.get("src/test/resources/golden-master/");
