@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.security.SecureRandom;
 import java.util.Random;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
@@ -31,8 +32,9 @@ public class CreateGoldenMaster {
 
     @Test
     public void create_a_single_actual_case() throws Exception {
-        for (int i = 1; i < 100; i++) {
-            writeGoldenMaster(i);
+        Random random = new Random(213L);
+        for (int i = 1; i < 1000; i++) {
+            writeGoldenMaster(random.nextInt());
         }
     }
 
@@ -42,11 +44,13 @@ public class CreateGoldenMaster {
         boolean notAWinner;
         Game aGame = new Game();
 
+        Random rand = new Random(seed);
+        int numberOfPlayers = rand.nextInt(4);
         aGame.add("Chet");
         aGame.add("Pat");
-        aGame.add("Sue");
-
-        Random rand = new Random(seed);
+        for (int i = 0; i < numberOfPlayers; i++) {
+            aGame.add("Player " + i);
+        }
 
         do {
             aGame.roll(rand.nextInt(5) + 1);
@@ -57,7 +61,7 @@ public class CreateGoldenMaster {
             }
         } while (notAWinner);
 
-        Files.write(goldenMasterPath.resolve("output" + seed + ".actual"), singletonList(inject.toString()), CREATE_NEW);
+        Files.write(goldenMasterPath.resolve("output_" + seed + ".actual"), singletonList(inject.toString()), CREATE_NEW);
     }
 
     private static void shallowDeleteFolder(Path path) throws IOException {
