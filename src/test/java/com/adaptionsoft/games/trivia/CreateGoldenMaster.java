@@ -15,7 +15,7 @@ import static java.nio.file.FileVisitResult.TERMINATE;
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 import static java.util.Collections.singletonList;
 
-public class CreateGoldenMasterTest {
+public class CreateGoldenMaster {
 
     private static Path goldenMasterPath = Paths.get("src/test/resources/golden-master/");
 
