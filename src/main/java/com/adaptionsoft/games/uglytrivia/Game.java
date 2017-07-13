@@ -36,8 +36,8 @@ public class Game {
 		
 		
 	    playersObject.addPlayer(playerName);
-	    places[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
+		initializePlace();
+		purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
@@ -58,12 +58,11 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 
 				System.out.println(playersObject.currentPlayer(this.getCurrentPlayer()) + " is getting out of the penalty box");
-				places[getCurrentPlayer()] = places[getCurrentPlayer()] + roll;
-				if (places[getCurrentPlayer()] > 11) places[getCurrentPlayer()] = places[getCurrentPlayer()] - 12;
+				advancePlace(roll);
 
 				System.out.println(playersObject.currentPlayer(this.getCurrentPlayer())
 						+ "'s new location is "
-						+ places[getCurrentPlayer()]);
+						+ getPlaces()[getCurrentPlayer()]);
 				System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
@@ -73,16 +72,28 @@ public class Game {
 
 		} else {
 
-			places[getCurrentPlayer()] = places[getCurrentPlayer()] + roll;
-			if (places[getCurrentPlayer()] > 11) places[getCurrentPlayer()] = places[getCurrentPlayer()] - 12;
+			advancePlace(roll);
 
 			System.out.println(playersObject.currentPlayer(this.getCurrentPlayer())
 					+ "'s new location is "
-					+ places[getCurrentPlayer()]);
+					+ getPlaces()[getCurrentPlayer()]);
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
 
+	}
+
+	private void advancePlace(int roll) {
+		movePlayer(roll);
+		if (getPlaces()[getCurrentPlayer()] > 11) wrapPlayerPlace();
+	}
+
+	private void wrapPlayerPlace() {
+		getPlaces()[getCurrentPlayer()] = getPlaces()[getCurrentPlayer()] - 12;
+	}
+
+	private void movePlayer(int roll) {
+		getPlaces()[getCurrentPlayer()] = getPlaces()[getCurrentPlayer()] + roll;
 	}
 
 	private void askQuestion() {
@@ -97,15 +108,15 @@ public class Game {
 	}
 
 	private String currentCategory() {
-		if (places[getCurrentPlayer()] == 0) return "Pop";
-		if (places[getCurrentPlayer()] == 4) return "Pop";
-		if (places[getCurrentPlayer()] == 8) return "Pop";
-		if (places[getCurrentPlayer()] == 1) return "Science";
-		if (places[getCurrentPlayer()] == 5) return "Science";
-		if (places[getCurrentPlayer()] == 9) return "Science";
-		if (places[getCurrentPlayer()] == 2) return "Sports";
-		if (places[getCurrentPlayer()] == 6) return "Sports";
-		if (places[getCurrentPlayer()] == 10) return "Sports";
+		if (getPlaces()[getCurrentPlayer()] == 0) return "Pop";
+		if (getPlaces()[getCurrentPlayer()] == 4) return "Pop";
+		if (getPlaces()[getCurrentPlayer()] == 8) return "Pop";
+		if (getPlaces()[getCurrentPlayer()] == 1) return "Science";
+		if (getPlaces()[getCurrentPlayer()] == 5) return "Science";
+		if (getPlaces()[getCurrentPlayer()] == 9) return "Science";
+		if (getPlaces()[getCurrentPlayer()] == 2) return "Sports";
+		if (getPlaces()[getCurrentPlayer()] == 6) return "Sports";
+		if (getPlaces()[getCurrentPlayer()] == 10) return "Sports";
 		return "Rock";
 	}
 
@@ -149,7 +160,6 @@ public class Game {
 		}
 	}
 
-
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(playersObject.currentPlayer(this.getCurrentPlayer()) + " was sent to the penalty box");
@@ -159,6 +169,7 @@ public class Game {
 		if (getCurrentPlayer() == playersObject.playersSize()) setCurrentPlayer(0);
 		return true;
 	}
+
 
 	private boolean didPlayerWin() {
 		return !(purses[getCurrentPlayer()] == 6);
@@ -170,5 +181,13 @@ public class Game {
 
 	public void setCurrentPlayer(int currentPlayer) {
 		playersObject.setCurrentPlayer(currentPlayer);
+	}
+
+	public int[] getPlaces() {
+		return places;
+	}
+
+	private void initializePlace() {
+		getPlaces()[howManyPlayers()] = 0;
 	}
 }
