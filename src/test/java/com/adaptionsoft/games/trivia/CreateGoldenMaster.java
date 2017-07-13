@@ -31,6 +31,12 @@ public class CreateGoldenMaster {
 
     @Test
     public void create_a_single_actual_case() throws Exception {
+        for (int i = 1; i < 100; i++) {
+            writeGoldenMaster(i);
+        }
+    }
+
+    private void writeGoldenMaster(long seed) throws IOException {
         MockSystemOutput inject = MockSystemOutput.inject();
 
         boolean notAWinner;
@@ -40,7 +46,6 @@ public class CreateGoldenMaster {
         aGame.add("Pat");
         aGame.add("Sue");
 
-        long seed = 1L;
         Random rand = new Random(seed);
 
         do {
