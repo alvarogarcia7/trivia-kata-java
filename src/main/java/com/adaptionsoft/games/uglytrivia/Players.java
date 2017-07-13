@@ -30,7 +30,7 @@ public class Players {
         this.currentPlayer = currentPlayer;
     }
 
-    public int[] getPlaces() {
+    private int[] getPlaces() {
         return places;
     }
 
@@ -71,5 +71,12 @@ public class Players {
 
     boolean didPlayerWin() {
         return !(getCurrentPlayerCoins() == 6);
+    }
+
+    public void next() {
+        currentPlayer++;
+        if (currentPlayer == players.size()) {
+            currentPlayer = 0;
+        }
     }
 }
