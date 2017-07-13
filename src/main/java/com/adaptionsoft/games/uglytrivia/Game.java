@@ -106,10 +106,10 @@ public class Game {
 		if (playersObject.isCurrentPlayerinPenaltyBox()){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				winCoin();
+				playersObject.currentPlayerWonACoin();
 				System.out.println(playersObject.currentPlayer()
 						+ " now has "
-						+ getCurrentPlayerCoins()
+						+ playersObject.getCurrentPlayerCoins()
 						+ " Gold Coins.");
 
 				boolean winner = playersObject.didPlayerWin();
@@ -128,10 +128,10 @@ public class Game {
 		} else {
 
 			System.out.println("Answer was corrent!!!!");
-			winCoin();
+			playersObject.currentPlayerWonACoin();
 			System.out.println(playersObject.currentPlayer()
 					+ " now has "
-					+ getCurrentPlayerCoins()
+					+ playersObject.getCurrentPlayerCoins()
 					+ " Gold Coins.");
 
 			boolean winner = playersObject.didPlayerWin();
@@ -152,11 +152,4 @@ public class Game {
 		return true;
 	}
 
-	private int getCurrentPlayerCoins() {
-		return playersObject.getCurrentPlayerCoins();
-	}
-
-	private void winCoin() {
-		playersObject.currentPlayerWonACoin();
-	}
 }
