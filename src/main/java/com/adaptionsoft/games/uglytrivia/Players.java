@@ -73,4 +73,7 @@ public class Players {
         inPenaltyBox[currentPlayer] = true;
     }
 
+    boolean didPlayerWin() {
+        return !(getCurrentPlayerCoins() == 6);
+    }
 }

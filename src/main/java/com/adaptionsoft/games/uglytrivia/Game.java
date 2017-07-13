@@ -112,7 +112,7 @@ public class Game {
 						+ getCurrentPlayerCoins()
 						+ " Gold Coins.");
 
-				boolean winner = didPlayerWin();
+				boolean winner = playersObject.didPlayerWin();
 				playersObject.setCurrentPlayer(playersObject.getCurrentPlayer() + 1);
 				if (playersObject.getCurrentPlayer() == playersObject.playersSize()) playersObject.setCurrentPlayer(0);
 
@@ -134,7 +134,7 @@ public class Game {
 					+ getCurrentPlayerCoins()
 					+ " Gold Coins.");
 
-			boolean winner = didPlayerWin();
+			boolean winner = playersObject.didPlayerWin();
 			playersObject.setCurrentPlayer(playersObject.getCurrentPlayer() + 1);
 			if (playersObject.getCurrentPlayer() == playersObject.playersSize()) playersObject.setCurrentPlayer(0);
 
@@ -150,10 +150,6 @@ public class Game {
 		playersObject.setCurrentPlayer(playersObject.getCurrentPlayer() + 1);
 		if (playersObject.getCurrentPlayer() == playersObject.playersSize()) playersObject.setCurrentPlayer(0);
 		return true;
-	}
-
-	private boolean didPlayerWin() {
-		return !(getCurrentPlayerCoins() == 6);
 	}
 
 	private int getCurrentPlayerCoins() {
