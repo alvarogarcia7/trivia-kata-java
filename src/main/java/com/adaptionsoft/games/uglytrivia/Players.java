@@ -7,6 +7,8 @@ public class Players {
     private int currentPlayer;
     private int[] places = new int[6];
     private int[] purses  = new int[6];
+    private boolean[] inPenaltyBox  = new boolean[6];
+
 
     int playersSize() {
         return players.size();
@@ -62,4 +64,13 @@ public class Players {
     public void currentPlayerWonACoin() {
         purses[currentPlayer]++;
     }
+
+    public boolean isCurrentPlayerinPenaltyBox() {
+        return inPenaltyBox[currentPlayer];
+    }
+
+    public void toPenaltyBox() {
+        inPenaltyBox[currentPlayer] = true;
+    }
+
 }
