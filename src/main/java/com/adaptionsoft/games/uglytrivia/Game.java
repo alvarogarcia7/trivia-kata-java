@@ -110,11 +110,11 @@ public class Game {
 						+ " Gold Coins.");
 
 				boolean winner = players.didPlayerWin();
-				next();
+				players.next();
 
 				return winner;
 			} else {
-				next();
+				players.next();
 				return true;
 			}
 
@@ -130,13 +130,9 @@ public class Game {
 					+ " Gold Coins.");
 
 			boolean winner = players.didPlayerWin();
-			next();
+			players.next();
 			return winner;
 		}
-	}
-
-	private void next() {
-		players.next();
 	}
 
 	public boolean wrongAnswer(){
@@ -144,7 +140,7 @@ public class Game {
 		System.out.println(players.currentPlayer() + " was sent to the penalty box");
 		players.sendCurrentPlayertoPenaltyBox();
 
-		next();
+		players.next();
 		return true;
 	}
 

@@ -22,21 +22,17 @@ public class Players {
         return players.get(currentPlayer);
     }
 
-    private int[] getPlaces() {
-        return places;
-    }
-
     int getCurrentPlayerPlace() {
         return places[currentPlayer];
     }
 
     private void movePlayer(int roll) {
-        getPlaces()[currentPlayer] = places[currentPlayer] + roll;
+        places[currentPlayer] = places[currentPlayer] + roll;
     }
 
     private void wrapPlayerPlaceIfNecessary() {
         if (places[currentPlayer] > 11) {
-            getPlaces()[currentPlayer] = places[currentPlayer] - 12;
+            places[currentPlayer] = places[currentPlayer] - 12;
         }
     }
 
