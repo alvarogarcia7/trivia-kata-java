@@ -30,10 +30,7 @@ public class Game {
 	}
 
 	public boolean add(String playerName) {
-
-
 	    playersObject.addPlayer(playerName);
-		playersObject.initializePlace();
 
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + playersObject.playersSize());
