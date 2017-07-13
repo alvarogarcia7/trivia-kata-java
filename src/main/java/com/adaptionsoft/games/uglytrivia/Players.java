@@ -22,14 +22,6 @@ public class Players {
         return players.get(currentPlayer);
     }
 
-    public int getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
     private int[] getPlaces() {
         return places;
     }
