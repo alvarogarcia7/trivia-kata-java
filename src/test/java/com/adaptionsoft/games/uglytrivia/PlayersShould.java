@@ -68,6 +68,11 @@ public class PlayersShould {
         assertThat(players.currentPlayerName(), is("player 1"));
     }
 
+    @Test
+    public void the_player_starts_at_place_0() {
+        assertThat(players.getCurrentPlayerPlace(), is(0));
+    }
+
 
     private void gameWithPlayers(int amount) {
         IntStream.rangeClosed(1, amount).mapToObj(Integer::toString).forEach(players::addPlayer);
