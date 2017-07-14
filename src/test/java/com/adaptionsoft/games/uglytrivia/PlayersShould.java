@@ -82,6 +82,19 @@ public class PlayersShould {
         assertThat(players.getCurrentPlayerPlace(), is(1));
     }
 
+
+    @Test
+    public void advance_every_players_place() {
+        players = aNewGameWithPlayers(10);
+
+        IntStream.rangeClosed(1,10).forEach(i->{
+            players.advancePlace(1);
+            players.next();
+        });
+
+        assertThat(players.getCurrentPlayerPlace(), is(1));
+    }
+
     @Test
     public void cumulate_advances_the_players_place() {
         players = aNewGameWithPlayers(2);

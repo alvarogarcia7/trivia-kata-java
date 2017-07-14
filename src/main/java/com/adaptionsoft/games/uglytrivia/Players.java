@@ -6,9 +6,9 @@ import java.util.List;
 public class Players {
     private List<Player> players = new ArrayList<>();
     private int currentPlayer;
-    private int[] places = new int[6];
-    private int[] purses  = new int[6];
-    private boolean[] inPenaltyBox  = new boolean[6];
+    private int[] places = new int[100];
+    private int[] purses  = new int[100];
+    private boolean[] inPenaltyBox  = new boolean[100];
 
 
     int playersSize() {
