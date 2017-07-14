@@ -87,16 +87,31 @@ public class Game {
 	}
 
 	private String currentCategory() {
-		if (players.getCurrentPlayerPlace() == 0) return "Pop";
-		if (players.getCurrentPlayerPlace() == 4) return "Pop";
-		if (players.getCurrentPlayerPlace() == 8) return "Pop";
-		if (players.getCurrentPlayerPlace() == 1) return "Science";
-		if (players.getCurrentPlayerPlace() == 5) return "Science";
-		if (players.getCurrentPlayerPlace() == 9) return "Science";
-		if (players.getCurrentPlayerPlace() == 2) return "Sports";
-		if (players.getCurrentPlayerPlace() == 6) return "Sports";
-		if (players.getCurrentPlayerPlace() == 10) return "Sports";
-		return "Rock";
+		if (is0or4or8()) {
+			return "Pop";
+		} else if (is1or5or9()) {
+			return "Science";
+		} else if (is2or6or10()) {
+			return "Sports";
+		} else {
+			return "Rock";
+		}
+
+	}
+
+	private boolean is2or6or10() {
+		int n = players.getCurrentPlayerPlace();
+		return n == 2 || n == 6 || n == 10;
+	}
+
+	private boolean is1or5or9() {
+		int n = players.getCurrentPlayerPlace();
+		return n == 1 || n == 5 || n == 9;
+	}
+
+	private boolean is0or4or8() {
+		int n = players.getCurrentPlayerPlace();
+		return n == 0 || n == 4 || n == 8;
 	}
 
 	public boolean wasCorrectlyAnswered() {
