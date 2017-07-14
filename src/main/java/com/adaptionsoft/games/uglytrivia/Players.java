@@ -6,7 +6,6 @@ import java.util.List;
 public class Players {
     private List<Player> players;
     private int currentPlayer;
-    private int[] places;
     private int[] purses;
     private boolean[] inPenaltyBox;
     private Player currentPlayerObject = Player.nullObject();
@@ -14,7 +13,6 @@ public class Players {
     public Players() {
         inPenaltyBox = new boolean[100];
         purses = new int[100];
-        places = new int[100];
         players = new ArrayList<>();
     }
 
@@ -35,21 +33,15 @@ public class Players {
     }
 
     int getCurrentPlayerPlace() {
-        int place = places[currentPlayer];
-        assert place == currentPlayerObject.place();
-        return place;
+        return currentPlayerObject.place();
     }
 
     private void movePlayer(int roll) {
-        places[currentPlayer] = places[currentPlayer] + roll;
         currentPlayerObject = currentPlayerObject.move(roll);
     }
 
     private void wrapPlayerPlaceIfNecessary() {
         currentPlayerObject.wrapPlaceIfNecessary();
-        if (places[currentPlayer] > 11) {
-            places[currentPlayer] = places[currentPlayer] - 12;
-        }
     }
 
     public void advancePlace(int roll) {
@@ -78,6 +70,13 @@ public class Players {
     }
 
     public void next() {
+        int index = players.indexOf(currentPlayerObject);
+        index++;
+        if (index == players.size()) {
+            index = 0;
+        }
+        currentPlayerObject = players.get(index);
+
         currentPlayer++;
         if (currentPlayer == players.size()) {
             currentPlayer = 0;
