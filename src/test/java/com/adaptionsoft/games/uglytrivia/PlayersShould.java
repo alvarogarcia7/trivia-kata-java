@@ -12,4 +12,13 @@ public class PlayersShould {
         assertThat(new Players().playersSize(), is(0));
     }
 
+    @Test
+    public void add_a_player() {
+        Players players = new Players();
+
+        players.addPlayer("player1");
+        
+        assertThat(players.playersSize(), is(1));
+    }
+
 }
