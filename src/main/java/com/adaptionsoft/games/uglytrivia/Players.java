@@ -19,7 +19,7 @@ public class Players {
         return players.add(new Player(playerName));
     }
 
-    String currentPlayer() {
+    String currentPlayerName() {
         return players.get(currentPlayer).name();
     }
 
