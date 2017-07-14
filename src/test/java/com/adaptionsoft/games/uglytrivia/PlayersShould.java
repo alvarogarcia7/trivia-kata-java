@@ -81,6 +81,15 @@ public class PlayersShould {
         assertThat(players.getCurrentPlayerPlace(), is(1));
     }
 
+    @Test
+    public void cumulate_advances_the_players_place() {
+
+        players.advancePlace(1);
+        players.advancePlace(2);
+
+        assertThat(players.getCurrentPlayerPlace(), is(3));
+    }
+
 
     private void gameWithPlayers(int amount) {
         IntStream.rangeClosed(1, amount).mapToObj(Integer::toString).forEach(players::addPlayer);
