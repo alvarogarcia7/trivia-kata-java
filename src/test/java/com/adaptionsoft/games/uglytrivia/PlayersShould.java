@@ -33,7 +33,7 @@ public class PlayersShould {
     @Test
     public void add_many_players() {
 
-        aNewGameWithPlayers(1000);
+        players = aNewGameWithPlayers(1000);
 
         assertThat(players.playersSize(), is(1000));
     }
