@@ -33,7 +33,7 @@ public class PlayersShould {
     @Test
     public void add_many_players() {
 
-        IntStream.rangeClosed(1,1000).mapToObj(Integer::toString).forEach(players::addPlayer);
+        gameWithPlayers();
 
         assertThat(players.playersSize(), is(1000));
     }
@@ -51,7 +51,6 @@ public class PlayersShould {
         assertThat(players.currentPlayerName(), is("player 2"));
     }
 
-
     @Test
     public void rotates_the_players() {
 
@@ -65,8 +64,13 @@ public class PlayersShould {
         assertThat(players.currentPlayerName(), is("player 2"));
 
         players.next();
-        
+
         assertThat(players.currentPlayerName(), is("player 1"));
+    }
+
+
+    private void gameWithPlayers() {
+        IntStream.rangeClosed(1,1000).mapToObj(Integer::toString).forEach(players::addPlayer);
     }
 
 }
