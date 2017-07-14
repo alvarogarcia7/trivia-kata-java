@@ -4,19 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Players {
-    private List<Player> players = new ArrayList<>();
+    private List<Player> players;
     private int currentPlayer;
-    private int[] places = new int[100];
-    private int[] purses  = new int[100];
-    private boolean[] inPenaltyBox  = new boolean[100];
+    private int[] places;
+    private int[] purses;
+    private boolean[] inPenaltyBox;
+    private Player currentPlayerObject = Player.nullObject();
 
+    public Players() {
+        inPenaltyBox = new boolean[100];
+        purses = new int[100];
+        places = new int[100];
+        players = new ArrayList<>();
+    }
 
     int playersSize() {
         return players.size();
     }
 
     boolean addPlayer(String playerName) {
-        return players.add(new Player(playerName));
+        Player player = new Player(playerName);
+        if(currentPlayerObject.isNullObject()){
+            currentPlayerObject = player;
+        }
+        return players.add(player);
     }
 
     String currentPlayerName() {
@@ -24,14 +35,18 @@ public class Players {
     }
 
     int getCurrentPlayerPlace() {
-        return places[currentPlayer];
+        int place = places[currentPlayer];
+        assert place == currentPlayerObject.place();
+        return place;
     }
 
     private void movePlayer(int roll) {
         places[currentPlayer] = places[currentPlayer] + roll;
+        currentPlayerObject = currentPlayerObject.move(roll);
     }
 
     private void wrapPlayerPlaceIfNecessary() {
+        currentPlayerObject.wrapPlaceIfNecessary();
         if (places[currentPlayer] > 11) {
             places[currentPlayer] = places[currentPlayer] - 12;
         }
