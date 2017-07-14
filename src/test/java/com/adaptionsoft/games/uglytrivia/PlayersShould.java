@@ -38,4 +38,35 @@ public class PlayersShould {
         assertThat(players.playersSize(), is(1000));
     }
 
+    @Test
+    public void advances_the_players() {
+
+        players.addPlayer("player 1");
+        players.addPlayer("player 2");
+
+        assertThat(players.currentPlayerName(), is("player 1"));
+
+        players.next();
+
+        assertThat(players.currentPlayerName(), is("player 2"));
+    }
+
+
+    @Test
+    public void rotates_the_players() {
+
+        players.addPlayer("player 1");
+        players.addPlayer("player 2");
+
+        assertThat(players.currentPlayerName(), is("player 1"));
+
+        players.next();
+
+        assertThat(players.currentPlayerName(), is("player 2"));
+
+        players.next();
+        
+        assertThat(players.currentPlayerName(), is("player 1"));
+    }
+
 }
