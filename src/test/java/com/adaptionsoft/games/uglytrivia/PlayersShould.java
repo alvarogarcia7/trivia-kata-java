@@ -73,6 +73,14 @@ public class PlayersShould {
         assertThat(players.getCurrentPlayerPlace(), is(0));
     }
 
+    @Test
+    public void advance_the_players_place() {
+
+        players.advancePlace(1);
+
+        assertThat(players.getCurrentPlayerPlace(), is(1));
+    }
+
 
     private void gameWithPlayers(int amount) {
         IntStream.rangeClosed(1, amount).mapToObj(Integer::toString).forEach(players::addPlayer);
