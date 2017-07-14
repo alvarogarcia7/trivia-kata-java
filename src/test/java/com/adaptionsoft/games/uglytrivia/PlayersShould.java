@@ -33,7 +33,7 @@ public class PlayersShould {
     @Test
     public void add_many_players() {
 
-        gameWithPlayers();
+        gameWithPlayers(1000);
 
         assertThat(players.playersSize(), is(1000));
     }
@@ -69,8 +69,8 @@ public class PlayersShould {
     }
 
 
-    private void gameWithPlayers() {
-        IntStream.rangeClosed(1,1000).mapToObj(Integer::toString).forEach(players::addPlayer);
+    private void gameWithPlayers(int amount) {
+        IntStream.rangeClosed(1, amount).mapToObj(Integer::toString).forEach(players::addPlayer);
     }
 
 }
