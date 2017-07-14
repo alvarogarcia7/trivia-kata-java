@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class PlayersShould {
+public class PlayersTest {
 
     private Players players;
 
