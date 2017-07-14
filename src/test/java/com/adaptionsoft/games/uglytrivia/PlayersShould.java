@@ -33,7 +33,7 @@ public class PlayersShould {
     @Test
     public void add_many_players() {
 
-        gameWithPlayers(1000);
+        aNewGameWithPlayers(1000);
 
         assertThat(players.playersSize(), is(1000));
     }
@@ -75,6 +75,7 @@ public class PlayersShould {
 
     @Test
     public void advance_the_players_place() {
+        players = aNewGameWithPlayers(1);
 
         players.advancePlace(1);
 
@@ -83,16 +84,31 @@ public class PlayersShould {
 
     @Test
     public void cumulate_advances_the_players_place() {
+        players = aNewGameWithPlayers(2);
 
         players.advancePlace(1);
         players.advancePlace(2);
 
         assertThat(players.getCurrentPlayerPlace(), is(3));
+
+        players.next();
+
+        players.advancePlace(4);
+
+        assertThat(players.getCurrentPlayerPlace(), is(4));
+
+        players.next(); //wrap back to the beginning
+        assertThat(players.getCurrentPlayerPlace(), is(3));
+
+        players.next();
+        assertThat(players.getCurrentPlayerPlace(), is(4));
     }
 
 
-    private void gameWithPlayers(int amount) {
+    private Players aNewGameWithPlayers(int amount) {
+        Players players = new Players();
         IntStream.rangeClosed(1, amount).mapToObj(Integer::toString).forEach(players::addPlayer);
+        return players;
     }
 
 }
