@@ -19,8 +19,8 @@ public class Players {
         return players.add(new Player(playerName));
     }
 
-    Object currentPlayer() {
-        return players.get(currentPlayer);
+    String currentPlayer() {
+        return players.get(currentPlayer).name();
     }
 
     int getCurrentPlayerPlace() {
