@@ -2,13 +2,14 @@ package com.adaptionsoft.games.uglytrivia;
 
 public class Game {
 	private final Questions questions;
-	private Players players = new Players();
+	private Players players;
 
 	private boolean isGettingOutOfPenaltyBox;
 
     public  Game(){
     	questions = Questions.standardSet();
-    }
+		players = new Players();
+	}
 
 	public String createRockQuestion(int index){
 		return questions.createRockQuestion(index);
